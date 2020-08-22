@@ -21,8 +21,9 @@
         app:layout_constraintVertical_bias="0.844" />
 
     <ListView
-        android:layout_width="342dp"
-        android:layout_height="558dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"

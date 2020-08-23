@@ -25,10 +25,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AboutProjectActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AboutProjectActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/ItemAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/ItemAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_item.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -247,22 +247,22 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1597331667702" />
-    <state width="1807" height="285" key="GridCell.Tab.0.bottom" timestamp="1598204409414">
+    <state width="1807" height="285" key="GridCell.Tab.0.bottom" timestamp="1598204995689">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="285" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598204409414" />
-    <state width="1807" height="285" key="GridCell.Tab.0.center" timestamp="1598204409413">
+    <state width="1807" height="285" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598204995689" />
+    <state width="1807" height="285" key="GridCell.Tab.0.center" timestamp="1598204995689">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="285" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598204409413" />
-    <state width="1807" height="285" key="GridCell.Tab.0.left" timestamp="1598204409413">
+    <state width="1807" height="285" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598204995689" />
+    <state width="1807" height="285" key="GridCell.Tab.0.left" timestamp="1598204995689">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="285" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598204409413" />
-    <state width="1807" height="285" key="GridCell.Tab.0.right" timestamp="1598204409413">
+    <state width="1807" height="285" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598204995689" />
+    <state width="1807" height="285" key="GridCell.Tab.0.right" timestamp="1598204995689">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="285" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598204409413" />
+    <state width="1807" height="285" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598204995689" />
     <state width="1563" height="344" key="GridCell.Tab.1.bottom" timestamp="1597167918400">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

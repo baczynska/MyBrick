@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:text="TextView"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -25,4 +25,13 @@
         android:text="ROW"
         app:layout_constraintStart_toStartOf="@+id/textView_top"
         app:layout_constraintTop_toBottomOf="@+id/textView_top" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="97dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

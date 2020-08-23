@@ -21,7 +21,14 @@ class ItemAdapter(context: Context) : BaseAdapter( ){
         val rowMain = layoutInflater.inflate(R.layout.row_item, parent, false)
 
         val textView_down = rowMain.findViewById<TextView>(R.id.textView_down)
-        textView_down.text = "ROW: $position"
+        val textView_top = rowMain.findViewById<TextView>(R.id.textView_top)
+
+        val myList = (mContext as AboutProjectActivity).myList
+        val myItem = myList[position]
+
+        textView_top.text = myItem.title
+        textView_down.text = myItem.description
+
 
         return rowMain
     }

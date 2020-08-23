@@ -16,6 +16,8 @@ class AboutProjectActivity : AppCompatActivity() {
     val i3 = Item("Lego3", "ekstra element", "image.jpg")
     val i4 = Item("Lego4", "inny element", "image.jpg")
 
+    val myList = arrayOf<Item>(i1, i2, i3, i4)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +29,13 @@ class AboutProjectActivity : AppCompatActivity() {
         title.text = code.toString()
 
         val listView = findViewById<ListView>(R.id.listView)
-
-        val myList = arrayOf<Item>(i1, i2, i3, i4)
         val listItems = arrayOfNulls<String>(myList.size)
 
         for (i in 0 until myList.size) {
             val item = myList[i]
             listItems[i] = item.title
         }
-// 4
+
         val adapter = ItemAdapter(this)
         listView.adapter = adapter
 

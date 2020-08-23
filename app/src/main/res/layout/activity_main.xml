@@ -8,53 +8,36 @@
 
     <Button
         android:id="@+id/addProjectButton"
-        android:layout_width="88dp"
-        android:layout_height="87dp"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="28dp"
+        android:background="#23DA03"
         android:text="Add Project"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-        app:layout_constraintVertical_bias="0.844" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/listView"
+        android:layout_width="442dp"
+        android:layout_height="645dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="110dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="36dp"
-        android:enabled="false"
-        android:text="Archiwizuj"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/settingsButton"
-        app:layout_constraintHorizontal_bias="0.21"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-        app:layout_constraintVertical_bias="0.838" />
-
-    <Button
         android:id="@+id/settingsButton"
-        android:layout_width="98dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="28dp"
+        android:background="#FFBE3B"
         android:text="SETTINGS"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addProjectButton"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic"
-        app:layout_constraintVertical_bias="0.852" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

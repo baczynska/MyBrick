@@ -1,24 +1,21 @@
 package com.example.mybrick
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mybrick.xml.DownloadXmlTask
-import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    val p1 = Project(1, "Project1")
-    val p2 = Project(2, "Project2")
-    val p3 = Project(3, "Project3")
+    val p1 = Project(101, "Project1")
+    val p2 = Project(102, "Project2")
+    val p3 = Project(103, "Project3")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         val myList = arrayOf<Project>(p1, p2, p3)
         val listItems = arrayOfNulls<String>(myList.size)
         for (i in 0 until myList.size) {
-            val item = myList[i]
-            listItems[i] = item.name
+            val itemName = myList[i].name
+            listItems[i] = itemName
         }
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
@@ -45,7 +42,14 @@ class MainActivity : AppCompatActivity() {
                     DialogInterface.BUTTON_POSITIVE -> {
                         // przejscie do widoku projektu
                         val intent = Intent(this, AboutProjectActivity::class.java)
-                        intent.putExtra("title", element)
+                        if (element != null) {
+
+                            val index = adapter.getPosition(element)
+                            val code = myList[index].number
+
+                            intent.putExtra("code", code)
+                        }
+
                         startActivity(intent)
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
@@ -70,9 +74,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             val builder = AlertDialog.Builder(this)
-            builder.setMessage(element)
-                .setPositiveButton("OPEN", dialogClickListener)
-                .setNegativeButton("ARCHIVE", dialogClickListener).show()
+            if (element != null) {
+                builder.setMessage(element)
+                    .setPositiveButton("OPEN", dialogClickListener)
+                    .setNegativeButton("ARCHIVE", dialogClickListener).show()
+            }
 
 
         }

@@ -3,11 +3,11 @@ package com.example.mybrick
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_about_project.*
+import kotlinx.android.synthetic.main.row_item.*
 
 class AboutProjectActivity : AppCompatActivity() {
 
@@ -40,6 +40,9 @@ class AboutProjectActivity : AppCompatActivity() {
         listView.adapter = adapter
 
 
+
     }
+
+
 
 }

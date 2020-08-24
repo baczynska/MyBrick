@@ -39,11 +39,19 @@ class ItemAdapter(context: Context) : BaseAdapter( ){
 
         increase.setOnClickListener {
             val listItem = it.parent as ViewGroup
-            increaseInteger(listItem.get(listItem.indexOfChild(R.id.integer_number)) as TextView)
+            listOf<View>(listItem).forEach {
+                if (it.id == R.id.integer_number) {
+                    increaseInteger(listItem.get(listItem.indexOfChild(it)) as TextView)
+                }
+            }
         }
         decrease.setOnClickListener {
             val listItem = it.parent as ViewGroup
-            increaseInteger(listItem.get(listItem.indexOfChild(R.id.integer_number)) as TextView)
+            listOf<View>(listItem).forEach {
+                if (it.id == R.id.integer_number) {
+                    decreaseInteger(listItem.get(listItem.indexOfChild(it)) as TextView)
+                }
+            }
         }
 
 

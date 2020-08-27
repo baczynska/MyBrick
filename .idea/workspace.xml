@@ -25,32 +25,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AboutProjectActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AboutProjectActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AddProject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AddProject.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/ItemAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/ItemAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/DatabaseSingleton.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/DatabaseSingleton.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/CodesDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/CodesDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/ColorsDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/ColorsDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesPartsDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesPartsDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/ItemTypesDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/ItemTypesDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/PartsDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/PartsDAO.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Category.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Category.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Code.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Code.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Color.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Color.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Inventory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Inventory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/InventoryPart.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/InventoryPart.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/ItemType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/ItemType.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Part.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/entity/Part.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/xml/DownloadXmlTask.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/xml/DownloadXmlTask.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/xml/XMLParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/xml/XMLParser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/BrickList.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/BrickList.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_about_project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_about_project.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,38 +251,38 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1597331667702" />
-    <state width="1807" height="292" key="GridCell.Tab.0.bottom" timestamp="1598546487945">
+    <state width="1807" height="446" key="GridCell.Tab.0.bottom" timestamp="1598552924011">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598546487945" />
-    <state width="1807" height="292" key="GridCell.Tab.0.center" timestamp="1598546487945">
+    <state width="1807" height="446" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598552924011" />
+    <state width="1807" height="446" key="GridCell.Tab.0.center" timestamp="1598552924011">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598546487945" />
-    <state width="1807" height="292" key="GridCell.Tab.0.left" timestamp="1598546487944">
+    <state width="1807" height="446" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598552924011" />
+    <state width="1807" height="446" key="GridCell.Tab.0.left" timestamp="1598552924010">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598546487944" />
-    <state width="1807" height="292" key="GridCell.Tab.0.right" timestamp="1598546487945">
+    <state width="1807" height="446" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598552924010" />
+    <state width="1807" height="446" key="GridCell.Tab.0.right" timestamp="1598552924011">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="292" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598546487945" />
-    <state width="1807" height="289" key="GridCell.Tab.1.bottom" timestamp="1598546373761">
+    <state width="1807" height="446" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598552924011" />
+    <state width="1807" height="871" key="GridCell.Tab.1.bottom" timestamp="1598552791035">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="289" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598546373761" />
-    <state width="1807" height="289" key="GridCell.Tab.1.center" timestamp="1598546373761">
+    <state width="1807" height="871" key="GridCell.Tab.1.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598552791035" />
+    <state width="1807" height="871" key="GridCell.Tab.1.center" timestamp="1598552791033">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="289" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598546373761" />
-    <state width="1807" height="289" key="GridCell.Tab.1.left" timestamp="1598546373761">
+    <state width="1807" height="871" key="GridCell.Tab.1.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598552791033" />
+    <state width="1807" height="871" key="GridCell.Tab.1.left" timestamp="1598552791032">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="289" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598546373761" />
-    <state width="1807" height="289" key="GridCell.Tab.1.right" timestamp="1598546373761">
+    <state width="1807" height="871" key="GridCell.Tab.1.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598552791032" />
+    <state width="1807" height="871" key="GridCell.Tab.1.right" timestamp="1598552791034">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
-    <state width="1807" height="289" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598546373761" />
+    <state width="1807" height="871" key="GridCell.Tab.1.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598552791034" />
     <state x="765" y="332" width="446" height="440" key="chooseDestDirectoryDialog" timestamp="1598102508474">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>

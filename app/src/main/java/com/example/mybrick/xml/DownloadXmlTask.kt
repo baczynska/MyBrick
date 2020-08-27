@@ -3,10 +3,14 @@ package com.example.mybrick.xml
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.content.ContextCompat.startActivity
+import com.example.mybrick.AboutProjectActivity
 import com.example.mybrick.R
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.Code
@@ -32,7 +36,7 @@ class DownloadXmlTask(private val activity: Activity) : AsyncTask<String, Void, 
 
 
 //        this function will clean your projects' set, only for development use !!!!!
-        //deleteAllInventories()
+        deleteAllInventories()
 
 
         val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
@@ -42,11 +46,11 @@ class DownloadXmlTask(private val activity: Activity) : AsyncTask<String, Void, 
                 inputId
             )) { // check if set already exist in database
             failure = true
-            return "Error DXT_01"
+            return "Error DXT_01 - this project already exist in database"
         } else if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkIfExistsByName(inputName)) {
             // check if setName already exist in database
             failure = true
-            return "Error DXT_02"
+            return "Error DXT_02 - this projeckt's name already exist in database"
         }
         return try {
             loadXmlFromNetwork("$sourceUrl$inputId.xml", inputId, inputName)
@@ -61,15 +65,31 @@ class DownloadXmlTask(private val activity: Activity) : AsyncTask<String, Void, 
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
+
+        val dialogClickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+
+                }
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    val intent = Intent(activity, AboutProjectActivity::class.java)
+                    val toSend = if (inputName.isEmpty()) inputId else inputName
+                    intent.putExtra("name", toSend)
+
+                    activity.startActivity(intent)
+                }
+            }
+        }
+
         if (failure) {
             val builder = AlertDialog.Builder(activity)
             if (result != null) {
-                builder.setMessage(result).show()
+                builder.setMessage(result).setPositiveButton("OK", dialogClickListener ).show()
             }
         } else {
             val builder = AlertDialog.Builder(activity)
             if (result != null) {
-                builder.setMessage(result).show()
+                builder.setMessage(result).setPositiveButton("Stay here", dialogClickListener ).setNegativeButton("Go to project", dialogClickListener).show()
             }
         }
         activity.findViewById<Button>(R.id.addButton).isEnabled = true

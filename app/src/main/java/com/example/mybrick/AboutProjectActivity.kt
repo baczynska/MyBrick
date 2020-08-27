@@ -25,9 +25,9 @@ class AboutProjectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_about_project)
 
         val title = findViewById<TextView>(R.id.textView_title)
-        val code = intent.getIntExtra("code", 0)
+        val name = intent.getStringExtra("name")
 
-        title.text = code.toString()
+        title.text = name
 
         val listView = findViewById<ListView>(R.id.listView)
         val listItems = arrayOfNulls<String>(myList.size)

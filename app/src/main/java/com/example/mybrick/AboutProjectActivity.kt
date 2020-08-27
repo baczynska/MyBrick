@@ -15,8 +15,9 @@ class AboutProjectActivity : AppCompatActivity() {
     val i2 = Item("Lego2", "tez bardzo wazny element", "image.jpg")
     val i3 = Item("Lego3", "ekstra element", "image.jpg")
     val i4 = Item("Lego4", "inny element", "image.jpg")
+    val i5 = Item("Lego5", "inny", "image.jpg")
 
-    val myList = arrayOf<Item>(i1, i2, i3, i4)
+    val myList = arrayOf<Item>(i1, i2, i3, i4, i5)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

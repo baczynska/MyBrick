@@ -21,6 +21,8 @@ class AddProject : AppCompatActivity(){
         val inputProjectName = findViewById<EditText>(R.id.editTextName)
         val addButton = findViewById<Button>(R.id.addButton)
 
+        val activity = this
+
         inputNumber.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
@@ -50,8 +52,8 @@ class AddProject : AppCompatActivity(){
                     when (which) {
                         DialogInterface.BUTTON_POSITIVE -> {
                             addButton.isEnabled = false
-                            DownloadXmlTask(this).execute()
-                            this.finish()
+                            DownloadXmlTask(activity).execute()
+
                         }
                         DialogInterface.BUTTON_NEGATIVE -> {
 
@@ -67,8 +69,7 @@ class AddProject : AppCompatActivity(){
             }
             else{
                 addButton.isEnabled = false
-                DownloadXmlTask(this).execute()
-                this.finish()
+                DownloadXmlTask(activity).execute()
             }
 
 

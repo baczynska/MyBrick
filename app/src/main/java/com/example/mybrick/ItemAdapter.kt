@@ -4,10 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.TextClock
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.get
 import kotlinx.android.synthetic.main.row_item.*
 
@@ -38,22 +35,23 @@ class ItemAdapter(context: Context) : BaseAdapter( ){
         val decrease = rowMain.findViewById<Button>(R.id.decrease)
 
         increase.setOnClickListener {
-            val listItem = it.parent as ViewGroup
-            listOf<View>(listItem).forEach {
-                if (it.id == R.id.integer_number) {
-                    increaseInteger(listItem.get(listItem.indexOfChild(it)) as TextView)
+            val listItem = it.parent as LinearLayout
+            for (i: Int in 0 until listItem.childCount) {
+                val child: View = listItem.get(i)
+                if (child.id == R.id.integer_number) {
+                    increaseInteger(child as TextView)
                 }
             }
         }
         decrease.setOnClickListener {
-            val listItem = it.parent as ViewGroup
-            listOf<View>(listItem).forEach {
-                if (it.id == R.id.integer_number) {
-                    decreaseInteger(listItem.get(listItem.indexOfChild(it)) as TextView)
+            val listItem = it.parent as LinearLayout
+            for (i: Int in 0 until listItem.childCount) {
+                val child: View = listItem.get(i)
+                if (child.id == R.id.integer_number) {
+                    decreaseInteger(child as TextView)
                 }
             }
         }
-
 
         return rowMain
     }
@@ -67,16 +65,21 @@ class ItemAdapter(context: Context) : BaseAdapter( ){
     }
 
     override fun getCount(): Int {
-        return 4
+        return (mContext as AboutProjectActivity).myList.size
     }
 
     fun increaseInteger(number: TextView) {
 
-        display(number, number.text.toString().toInt() + 1)
+//        if(number.text.toString().toInt() < item.maxx) {
+//            display(number, number.text.toString().toInt() + 1)
+//        }
     }
 
     fun decreaseInteger(number: TextView) {
-        display(number, number.text.toString().toInt() - 1)
+
+        if(number.text.toString().toInt() > 0) {
+            display(number, number.text.toString().toInt() - 1)
+        }
     }
 
     private fun display(number: TextView, newNumber: Int) {

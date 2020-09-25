@@ -1,38 +1,29 @@
 package com.example.mybrick
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.get
-import kotlinx.android.synthetic.main.row_item.*
+import com.example.mybrick.database.entity.InventoryPart
 
-class ItemAdapter(context: Context) : BaseAdapter( ){
+class ItemAdapter(
+    private val context: Context,
+    private val items: List<LayoutRowData>
+) : BaseAdapter() {
 
-    var integer_number : TextView? = null
-
-    private val mContext: Context
-
-    init {
-        this.mContext = context
-    }
-
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val layoutInflater = LayoutInflater.from(mContext)
-        val rowMain = layoutInflater.inflate(R.layout.row_item, parent, false)
+        val layoutInflater = LayoutInflater.from(context)
+        val rowView = layoutInflater.inflate(R.layout.row_item, parent, false)
+        val item: LayoutRowData = items[position]
 
-        val textView_down = rowMain.findViewById<TextView>(R.id.textView_down)
-        val textView_top = rowMain.findViewById<TextView>(R.id.textView_top)
+        fillLayout(rowView, item)
 
-        val myList = (mContext as AboutProjectActivity).myList
-        val myItem = myList[position]
-
-        textView_top.text = myItem.title
-        textView_down.text = myItem.description
-
-        val increase = rowMain.findViewById<Button>(R.id.increase)
-        val decrease = rowMain.findViewById<Button>(R.id.decrease)
+        val increase = rowView.findViewById<Button>(R.id.increase)
+        val decrease = rowView.findViewById<Button>(R.id.decrease)
 
         increase.setOnClickListener {
             val listItem = it.parent as LinearLayout
@@ -53,7 +44,7 @@ class ItemAdapter(context: Context) : BaseAdapter( ){
             }
         }
 
-        return rowMain
+        return rowView
     }
 
     override fun getItem(position: Int): Any {
@@ -65,26 +56,33 @@ class ItemAdapter(context: Context) : BaseAdapter( ){
     }
 
     override fun getCount(): Int {
-        return (mContext as AboutProjectActivity).myList.size
+        return items.size
     }
 
     fun increaseInteger(number: TextView) {
-
-//        if(number.text.toString().toInt() < item.maxx) {
-//            display(number, number.text.toString().toInt() + 1)
-//        }
+        display(number, number.text.toString().toInt() + 1)
     }
 
     fun decreaseInteger(number: TextView) {
-
-        if(number.text.toString().toInt() > 0) {
-            display(number, number.text.toString().toInt() - 1)
-        }
+        display(number, number.text.toString().toInt() - 1)
     }
 
     private fun display(number: TextView, newNumber: Int) {
         number.setText("$newNumber")
     }
 
+    private fun fillLayout(rowView: View, data: LayoutRowData) {
+        val maxElements: TextView = rowView.findViewById(R.id.textView_maxElements)
+        val itemsNumberElement: TextView = rowView.findViewById(R.id.integer_number)
+        val mainLabel: TextView = rowView.findViewById(R.id.textView_top)
+        val descriptionLabel: TextView = rowView.findViewById(R.id.textView_down)
+        val imageView: ImageView = rowView.findViewById(R.id.imageView)
+
+        maxElements.text = data.quantityInSet
+        itemsNumberElement.text = data.quantityInStore
+        mainLabel.text = data.title
+        descriptionLabel.text = data.description
+        imageView.setImageBitmap(data.imageBitmap)
+    }
 
 }

@@ -17,6 +17,9 @@ interface InventoriesPartsDAO {
     @Query("SELECT * FROM InventoriesParts")
     fun findAll(): List<InventoryPart>
 
+    @Query("SELECT * FROM InventoriesParts WHERE InventoryID = :inventoryId")
+    fun findAllByInventoryId(inventoryId: Int): List<InventoryPart>
+
     fun deleteAll() {
         delete(findAll())
     }

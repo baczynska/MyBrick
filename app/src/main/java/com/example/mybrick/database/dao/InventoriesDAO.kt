@@ -17,6 +17,9 @@ interface InventoriesDAO {
     @Query("SELECT EXISTS(SELECT * FROM Inventories WHERE Name = :name)")
     fun checkIfExistsByName(name: String): Boolean
 
+    @Query("SELECT Id FROM Inventories WHERE Name = :name LIMIT 1")
+    fun findIdByName(name: String): Int?
+
     @Insert
     fun insert(newInventory: Inventory)
 

@@ -8,14 +8,20 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import java.util.*
+import com.example.mybrick.database.DatabaseSingleton
+import com.example.mybrick.database.entity.Inventory
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 
 
 class MainActivity : AppCompatActivity() {
 
-    val p1 = Project(101, "Project1")
-    val p2 = Project(102, "Project2")
-    val p3 = Project(103, "Project3")
+    var adapter : ArrayAdapter<String>? = null;
+
+    private val inventoriesLiveData: MutableLiveData<List<Inventory>> by lazy {
+        MutableLiveData<List<Inventory>>()
+    }
+    private val myList = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,18 +29,31 @@ class MainActivity : AppCompatActivity() {
 
         val listView = findViewById<ListView>(R.id.listView)
 
-        val myList = arrayOf<Project>(p1, p2, p3)
-        val listItems = arrayOfNulls<String>(myList.size)
-        for (i in 0 until myList.size) {
-            val itemName = myList[i].name
-            listItems[i] = itemName
+//        val myList = arrayOf<Project>(p1, p2, p3)
+//        val listItems = arrayOfNulls<String>(myList.size)
+//        for (i in 0 until myList.size) {
+//            val itemName = myList[i].name
+//            listItems[i] = itemName
+//        }
+
+        val inventoriesObserver = Observer<List<Inventory>> {
+            // Update the UI, in this case, a TextView.
+            myList.clear()
+            it.forEach {
+                myList.add(it.name)
+            }
+            adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, myList)
+            listView.adapter = adapter
         }
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
-        listView.adapter = adapter
+        inventoriesLiveData.observe(this, inventoriesObserver)
+
+        Thread {
+            inventoriesLiveData.postValue(DatabaseSingleton.getInstance(this).InventoriesDAO().findAll())
+        }.start()
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            val element = adapter.getItem(position)
+            val element = adapter?.getItem(position)
 
 
             val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
@@ -44,13 +63,14 @@ class MainActivity : AppCompatActivity() {
                         val intent = Intent(this, AboutProjectActivity::class.java)
                         if (element != null) {
 
-                            val index = adapter.getPosition(element)
-                            val code = myList[index].number
+                            val index = adapter?.getPosition(element)
 
-                            intent.putExtra("code", code)
+                            intent.putExtra("name", element)
+
+                            startActivity(intent)
                         }
 
-                        startActivity(intent)
+
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
 

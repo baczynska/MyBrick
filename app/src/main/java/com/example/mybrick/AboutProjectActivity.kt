@@ -1,49 +1,49 @@
 package com.example.mybrick
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_about_project.*
-import kotlinx.android.synthetic.main.row_item.*
+import androidx.core.view.isVisible
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.example.mybrick.database.DatabaseSingleton
+import com.example.mybrick.database.entity.InventoryPart
 
 class AboutProjectActivity : AppCompatActivity() {
-
-    val i1 = Item("Lego1", "Bardzo wazny element", "image.jpg")
-    val i2 = Item("Lego2", "tez bardzo wazny element", "image.jpg")
-    val i3 = Item("Lego3", "ekstra element", "image.jpg")
-    val i4 = Item("Lego4", "inny element", "image.jpg")
-    val i5 = Item("Lego5", "inny", "image.jpg")
-
-    val myList = arrayOf<Item>(i1, i2, i3, i4, i5)
-
+    private val inventoriesPartsLiveData: MutableLiveData<List<LayoutRowData>> by lazy {
+        MutableLiveData<List<LayoutRowData>>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about_project)
+
+        val progressBar: ProgressBar = findViewById(R.id.about_project_progressBar)
+        progressBar.isVisible = true
+
+        val listView = findViewById<ListView>(R.id.listView)
 
         val title = findViewById<TextView>(R.id.textView_title)
         val name = intent.getStringExtra("name")
 
         title.text = name
 
-        val listView = findViewById<ListView>(R.id.listView)
-        val listItems = arrayOfNulls<String>(myList.size)
-
-        for (i in 0 until myList.size) {
-            val item = myList[i]
-            listItems[i] = item.title
+        val partsObserver = Observer<List<LayoutRowData>> {
+            listView.adapter = ItemAdapter(this, it)
         }
 
-        val adapter = ItemAdapter(this)
-        listView.adapter = adapter
+        inventoriesPartsLiveData.observe(this, partsObserver)
 
-
-
+        Thread {
+            val databaseSingleton: DatabaseSingleton = DatabaseSingleton.getInstance(this)
+            val codeInventory: Int? = databaseSingleton.InventoriesDAO().findIdByName(name)
+            if (codeInventory != null) {
+                val inventoryPartsList: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllByInventoryId(codeInventory)
+                inventoriesPartsLiveData.postValue(inventoryPartsList.map { LayoutRowData(this, it) })
+            } else {
+                throw Throwable("Inventory not found")
+            }
+        }.start()
     }
-
-
 
 }

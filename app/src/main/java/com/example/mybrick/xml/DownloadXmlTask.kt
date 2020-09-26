@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.AsyncTask
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import androidx.core.content.ContextCompat.startActivity
 import com.example.mybrick.AboutProjectActivity
 import com.example.mybrick.R
 import com.example.mybrick.database.DatabaseSingleton
@@ -34,16 +32,14 @@ class DownloadXmlTask(private val activity: Activity) : AsyncTask<String, Void, 
 
     override fun doInBackground(vararg urls: String): String {
 
+       deleteAllInventories()
 
-//        this function will clean your projects' set, only for development use !!!!!
-        deleteAllInventories()
-
-
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = activity.getSharedPreferences("Preferences",Context.MODE_PRIVATE)
         val sourceUrl = settings.url
 
+
         if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkIfExistsById(
-                inputId
+                inputId.toInt()
             )) { // check if set already exist in database
             failure = true
             return "Error DXT_01 - this project already exist in database"
@@ -138,50 +134,40 @@ class DownloadXmlTask(private val activity: Activity) : AsyncTask<String, Void, 
     }
 
     private fun saveImage(part: InventoryPart, context: Context) {
-        val itemID = DatabaseSingleton.getInstance(context).PartsDAO().findCodeById(part.itemID)
-
-        val urlWithColor = "https://www.bricklink.com/P/"
-        val urlWitoutColor = "https://www.bricklink.com/PL/"
-
-        var code: Code? = DatabaseSingleton.getInstance(context).CodesDAO().findByItemIdAndColorId(
+        // code jest rekordem w tabeli Code gdzie trzymamy obrazki
+        val databaseSingleton = DatabaseSingleton.getInstance(context)
+        val partCode = databaseSingleton.PartsDAO().findCodeById(part.itemID)
+        val colorCode = databaseSingleton.ColorsDAO().findCodeById(part.colorId)
+        databaseSingleton.CodesDAO().findByItemIdAndColorId(
             part.itemID,
             part.colorId
-        )
-        if (code == null) {
-            if (itemID != null) {
-                val imageURL = "https://www.bricklink.com/PL/$itemID.jpg"
-                code = DatabaseSingleton.getInstance(context).CodesDAO().findByItemId(part.itemID)
-                if (code == null) {
-                    var image: ByteArray? = null;
+        )?.let { code: Code ->
+            if (partCode != null) {
+                val imageURL =
+                    if (colorCode != null) "https://www.bricklink.com/P/$colorCode/$partCode.jpg"
+                    else "https://www.bricklink.com/PL/$partCode.jpg"
+                if (code.image == null) {
                     try {
-                         image = downloadImage(imageURL)
-                    } catch (e: IOException) {
-                        //image not found
-                    }
-                    DatabaseSingleton.getInstance(context).CodesDAO()
-                        .insertNewCode(Code(0, part.itemID, null, null, image)).toInt()
-                    // id = 0 means id will be generated automatically
-                } else {
-                    try {
-                        if (code.image == null) {
-                            code.image = downloadImage(imageURL)
-                        }
+                        code.image = downloadImage(imageURL)
                         DatabaseSingleton.getInstance(context).CodesDAO().updateCode(code)
                     } catch (e: IOException) {
                         //image not found
                     }
-                    code.id
                 }
             }
-        } else {
-            val imageURL = "https://www.bricklink.com/P/${part.colorId}/$itemID.gif"
-            if (code.image == null) {
+        } ?: run {
+            if (partCode != null) {
+                val imageURL =
+                    if (colorCode != null) "https://www.bricklink.com/P/$colorCode/$partCode.jpg"
+                    else "https://www.bricklink.com/PL/$partCode.jpg"
+                var image: ByteArray? = null
                 try {
-                    code.image?:downloadImage(imageURL)
-                    DatabaseSingleton.getInstance(context).CodesDAO().updateCode(code)
+                    image = downloadImage(imageURL)
                 } catch (e: IOException) {
                     //image not found
                 }
+                DatabaseSingleton.getInstance(context).CodesDAO()
+                    .insertNewCode(Code(0, part.itemID, part.colorId, null, image))
             }
         }
     }
@@ -203,5 +189,14 @@ class DownloadXmlTask(private val activity: Activity) : AsyncTask<String, Void, 
     private fun deleteAllInventories() {
         DatabaseSingleton.getInstance(activity).InventoriesPartsDAO().deleteAll()
         DatabaseSingleton.getInstance(activity).InventoriesDAO().deleteAll()
+    }
+
+    private fun concatMessageWithInfoAboutNotFoundParts(
+        message: String,
+        notFoundParts: List<String>,
+    ): String {
+        message.plus("\n")
+        notFoundParts.forEach { message.plus("\n" + it) }
+        return message
     }
 }

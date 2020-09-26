@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.InventoryPart
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AboutProjectActivity : AppCompatActivity() {
     private val inventoriesPartsLiveData: MutableLiveData<List<LayoutRowData>> by lazy {
@@ -29,6 +30,7 @@ class AboutProjectActivity : AppCompatActivity() {
         title.text = name
 
         val partsObserver = Observer<List<LayoutRowData>> {
+            progressBar.isVisible = false
             listView.adapter = ItemAdapter(this, it)
         }
 
@@ -36,10 +38,15 @@ class AboutProjectActivity : AppCompatActivity() {
 
         Thread {
             val databaseSingleton: DatabaseSingleton = DatabaseSingleton.getInstance(this)
+            databaseSingleton.InventoriesDAO().updateLastAccessTime(name)
             val codeInventory: Int? = databaseSingleton.InventoriesDAO().findIdByName(name)
             if (codeInventory != null) {
-                val inventoryPartsList: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllByInventoryId(codeInventory)
-                inventoriesPartsLiveData.postValue(inventoryPartsList.map { LayoutRowData(this, it) })
+                val inventoryPartsList: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllByInventoryId(
+                    codeInventory)
+                inventoriesPartsLiveData.postValue(inventoryPartsList.map {
+                    LayoutRowData(this,
+                        it)
+                })
             } else {
                 throw Throwable("Inventory not found")
             }

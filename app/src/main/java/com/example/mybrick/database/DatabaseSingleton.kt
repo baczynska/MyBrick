@@ -21,8 +21,6 @@ abstract class DatabaseSingleton : RoomDatabase() {
 
     abstract fun InventoriesDAO (): InventoriesDAO
 
-    abstract fun ColorsDao (): ColorsDao
-
     abstract fun CodesDAO (): CodesDAO
 
     abstract fun InventoriesPartsDAO (): InventoriesPartsDAO
@@ -30,6 +28,8 @@ abstract class DatabaseSingleton : RoomDatabase() {
     abstract fun PartsDAO (): PartsDAO
 
     abstract fun CategoriesDAO (): CategoriesDAO
+
+    abstract fun ColorsDAO(): ColorsDAO
 
     companion object{
         var INSTANCE: DatabaseSingleton? = null

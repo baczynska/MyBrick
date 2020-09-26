@@ -1,9 +1,7 @@
 package com.example.mybrick.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
+import com.example.mybrick.database.entity.Inventory
 import com.example.mybrick.database.entity.InventoryPart
 
 @Dao
@@ -23,4 +21,7 @@ interface InventoriesPartsDAO {
     fun deleteAll() {
         delete(findAll())
     }
+
+    @Update
+    fun update(parts: List<InventoryPart>)
 }

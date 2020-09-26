@@ -3,4 +3,5 @@
     <string name="connectionError">Connection Error</string>
     <string name="xmlError">XML Error</string>
     <string name="xmlSuccess">Success</string>
+    <string name="simpleError">Error</string>
 </resources>

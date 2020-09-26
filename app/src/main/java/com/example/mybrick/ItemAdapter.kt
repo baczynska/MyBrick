@@ -2,10 +2,12 @@ package com.example.mybrick
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
 import com.example.mybrick.database.entity.InventoryPart
 
@@ -26,33 +28,21 @@ class ItemAdapter(
         val decrease = rowView.findViewById<Button>(R.id.decrease)
 
         increase.setOnClickListener {
-            val listItem = it.parent as LinearLayout
-            for (i: Int in 0 until listItem.childCount) {
-                val child: View = listItem.get(i)
-                if (child.id == R.id.integer_number) {
-                    increaseInteger(child as TextView)
-                }
-            }
+            changePartsQuantity(1, it, position)
         }
         decrease.setOnClickListener {
-            val listItem = it.parent as LinearLayout
-            for (i: Int in 0 until listItem.childCount) {
-                val child: View = listItem.get(i)
-                if (child.id == R.id.integer_number) {
-                    decreaseInteger(child as TextView)
-                }
-            }
+            changePartsQuantity(-1, it, position)
         }
 
         return rowView
     }
 
     override fun getItem(position: Int): Any {
-        return "TEST"
+        return items[position].quantityInStore
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong()
+        return items[position].id.toLong()
     }
 
     override fun getCount(): Int {
@@ -78,11 +68,29 @@ class ItemAdapter(
         val descriptionLabel: TextView = rowView.findViewById(R.id.textView_down)
         val imageView: ImageView = rowView.findViewById(R.id.imageView)
 
-        maxElements.text = data.quantityInSet
-        itemsNumberElement.text = data.quantityInStore
+        maxElements.text = data.quantityInSet.toString()
+        itemsNumberElement.text = data.quantityInStore.toString()
         mainLabel.text = data.title
         descriptionLabel.text = data.description
         imageView.setImageBitmap(data.imageBitmap)
+    }
+
+    private fun changePartsQuantity(change: Int, clickedButton: View, position: Int) {
+        val listItem = clickedButton.parent as LinearLayout
+        for (i: Int in 0 until listItem.childCount) {
+            val child: View = listItem[i]
+            if (child.id == R.id.integer_number) {
+                val newQuantity: Int = items[position].quantityInStore + change
+                if( 0 <= newQuantity && newQuantity <= items[position].quantityInSet) {
+                    items[position].quantityInStore = newQuantity
+                    (child as TextView).text = "$newQuantity"
+                    if ( newQuantity == items[position].quantityInSet)
+                        (listItem.parent as ConstraintLayout).setBackgroundColor(Color.BLUE)
+                    else
+                        (listItem.parent as ConstraintLayout).setBackgroundColor(Color.WHITE)
+                }
+            }
+        }
     }
 
 }

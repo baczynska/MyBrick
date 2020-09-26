@@ -86,8 +86,8 @@ class XMLParser(application: Application) : AndroidViewModel(application) {
                 "ITEMID" -> part.itemID = DatabaseSingleton.getInstance(getApplication()).PartsDAO().findIdByCode(parser.text)
                 "ITEMTYPE" -> part.typeId = DatabaseSingleton.getInstance(getApplication()).ItemTypesDAO()
                     .findIdByItemType(parser.text)
-                "COLOR" -> part.colorID = DatabaseSingleton.getInstance(getApplication()).ColorsDao()
-                    .findIdByCode(parser.text[0].toInt())
+                "COLOR" -> part.colorID = DatabaseSingleton.getInstance(getApplication()).ColorsDAO()
+                    .findIdByCode(parser.text.toInt())
                 "ALTERNATE" -> {
                     if (parser.text != "N") {
                         throw XmlPullParserException("ALTERNATE != N")

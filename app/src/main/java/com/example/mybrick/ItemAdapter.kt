@@ -14,7 +14,11 @@ import com.example.mybrick.database.entity.InventoryPart
 class ItemAdapter(
     private val context: Context,
     private val items: List<LayoutRowData>
+
 ) : BaseAdapter() {
+
+    private val doneColor = Color.parseColor("#E91E63")
+    private val mainColor = Color.WHITE
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -49,18 +53,6 @@ class ItemAdapter(
         return items.size
     }
 
-    fun increaseInteger(number: TextView) {
-        display(number, number.text.toString().toInt() + 1)
-    }
-
-    fun decreaseInteger(number: TextView) {
-        display(number, number.text.toString().toInt() - 1)
-    }
-
-    private fun display(number: TextView, newNumber: Int) {
-        number.setText("$newNumber")
-    }
-
     private fun fillLayout(rowView: View, data: LayoutRowData) {
         val maxElements: TextView = rowView.findViewById(R.id.textView_maxElements)
         val itemsNumberElement: TextView = rowView.findViewById(R.id.integer_number)
@@ -73,6 +65,12 @@ class ItemAdapter(
         mainLabel.text = data.title
         descriptionLabel.text = data.description
         imageView.setImageBitmap(data.imageBitmap)
+
+        if( (data.quantityInSet == data.quantityInStore)){
+            (maxElements.parent as ConstraintLayout).setBackgroundColor(doneColor)
+        } else {
+            (maxElements.parent as ConstraintLayout).setBackgroundColor(mainColor)
+        }
     }
 
     private fun changePartsQuantity(change: Int, clickedButton: View, position: Int) {
@@ -85,9 +83,9 @@ class ItemAdapter(
                     items[position].quantityInStore = newQuantity
                     (child as TextView).text = "$newQuantity"
                     if ( newQuantity == items[position].quantityInSet)
-                        (listItem.parent as ConstraintLayout).setBackgroundColor(Color.BLUE)
+                        (listItem.parent as ConstraintLayout).setBackgroundColor(doneColor)
                     else
-                        (listItem.parent as ConstraintLayout).setBackgroundColor(Color.WHITE)
+                        (listItem.parent as ConstraintLayout).setBackgroundColor(mainColor)
                 }
             }
         }

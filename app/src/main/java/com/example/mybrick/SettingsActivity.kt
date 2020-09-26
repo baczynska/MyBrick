@@ -1,34 +1,51 @@
 package com.example.mybrick
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.activity_main.*
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity: AppCompatActivity() {
+    private lateinit var pathPrefixOfURL: EditText
+    private lateinit var showArchivedSwitch: Switch
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        val showArchivedSwitch = findViewById<Switch>(R.id.archivedSwitch)
+        pathPrefixOfURL = findViewById(R.id.pathPrefixOfUrlPlainText)
+        showArchivedSwitch = findViewById(R.id.archivedSwitch)
         val saveButton = findViewById<Button>(R.id.saveButton)
-        val pathPrefixOfURL = findViewById<EditText>(R.id.pathPrefixOfUrlPlainText)
-        val settingsView = findViewById<ConstraintLayout>(R.id.settingsView)
-
-        pathPrefixOfURL.setText(settings.url)
-        showArchivedSwitch.isChecked = settings.showArchived
+        sharedPref = getSharedPreferences("Preferences", Context.MODE_PRIVATE)
+        setActualValues()
 
         saveButton.setOnClickListener {
-            settings.url = pathPrefixOfURL.text.toString()
-            settings.showArchived = showArchivedSwitch.isChecked
+            saveChanges()
             this.finish()
         }
 
     }
 
+    override fun onPause() {
+        saveChanges()
+        super.onPause()
+    }
+
+
+
+    private fun setActualValues() {
+        pathPrefixOfURL.setText(sharedPref.getString(resources.getString(R.string.source_url), resources.getString(R.string.defaultSourceUrl)))
+        showArchivedSwitch.isChecked = sharedPref.getBoolean(resources.getString(R.string.show_archived), false)
+    }
+
+    private fun saveChanges() {
+        sharedPref.edit()
+            .putString(resources.getString(R.string.source_url), pathPrefixOfURL.text.toString())
+            .putBoolean(resources.getString(R.string.show_archived), showArchivedSwitch.isChecked)
+            .apply()
+    }
 }

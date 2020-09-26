@@ -1,27 +1,42 @@
 package com.example.mybrick
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.Inventory
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.example.mybrick.xml.DownloadXmlTask
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MainActivity : AppCompatActivity() {
 
-    var adapter : ArrayAdapter<String>? = null;
+    fun loadInventoriesList() {
+        Thread {
+            val alsoArchived: Boolean = getSharedPreferences("Preferences", Context.MODE_PRIVATE).getBoolean(resources.getString(R.string.show_archived), false)
+            inventoriesLiveData.postValue(DatabaseSingleton.getInstance(this).InventoriesDAO().findAll(alsoArchived))
+        }.start()
+    }
 
-    private val inventoriesLiveData: MutableLiveData<List<Inventory>> by lazy {
+    val inventoriesLiveData: MutableLiveData<List<Inventory>> by lazy {
         MutableLiveData<List<Inventory>>()
     }
-    private val myList = arrayListOf<String>()
+    private var myList = mutableListOf<Inventory>()
+
+    override fun onResume() {
+        super.onResume()
+        loadInventoriesList()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,31 +44,20 @@ class MainActivity : AppCompatActivity() {
 
         val listView = findViewById<ListView>(R.id.listView)
 
-//        val myList = arrayOf<Project>(p1, p2, p3)
-//        val listItems = arrayOfNulls<String>(myList.size)
-//        for (i in 0 until myList.size) {
-//            val itemName = myList[i].name
-//            listItems[i] = itemName
-//        }
-
-        val inventoriesObserver = Observer<List<Inventory>> {
-            // Update the UI, in this case, a TextView.
-            myList.clear()
-            it.forEach {
-                myList.add(it.name)
-            }
-            adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, myList)
-            listView.adapter = adapter
+        val inventoriesObserver = Observer<List<Inventory>> {it ->
+            myList = it.toMutableList()
+            myList.sortByDescending { it.lastAccess }
+            listView.adapter = InventoryAdapter(this, myList)
         }
 
         inventoriesLiveData.observe(this, inventoriesObserver)
 
-        Thread {
-            inventoriesLiveData.postValue(DatabaseSingleton.getInstance(this).InventoriesDAO().findAll())
-        }.start()
+//        Thread {
+//            inventoriesLiveData.postValue(DatabaseSingleton.getInstance(this).InventoriesDAO().findAll())
+//        }.start()
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            val element = adapter?.getItem(position)
+            val element = listView.adapter.getItem(position) as Inventory
 
 
             val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
@@ -61,32 +65,24 @@ class MainActivity : AppCompatActivity() {
                     DialogInterface.BUTTON_POSITIVE -> {
                         // przejscie do widoku projektu
                         val intent = Intent(this, AboutProjectActivity::class.java)
-                        if (element != null) {
-
-                            val index = adapter?.getPosition(element)
-
-                            intent.putExtra("name", element)
-
-                            startActivity(intent)
-                        }
-
-
+                        intent.putExtra("name", element.name)
+                        startActivity(intent)
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
-
                         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
                             when (which) {
                                 DialogInterface.BUTTON_POSITIVE -> {
-                                    // Archiwizacja projektu
-                                }
-                                DialogInterface.BUTTON_NEGATIVE -> {
-
+                                    // Archiwizacja/dearchiwizacja projektu
+                                    Thread {
+                                        DatabaseSingleton.getInstance(this).InventoriesDAO().changeArchiveStatus(element.name)
+                                        loadInventoriesList()
+                                    }.start()
                                 }
                             }
                         }
 
                         val builder = AlertDialog.Builder(this)
-                        builder.setMessage("Are you sure you want to archive this project")
+                        builder.setMessage( if (element.active == 1) getString(R.string.archive_question) else getString(R.string.unarchive_question))
                             .setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show()
                     }
@@ -95,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
             val builder = AlertDialog.Builder(this)
             if (element != null) {
-                builder.setMessage(element)
+                builder.setMessage(element.name)
                     .setPositiveButton("OPEN", dialogClickListener)
                     .setNegativeButton("ARCHIVE", dialogClickListener).show()
             }

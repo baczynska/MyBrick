@@ -1,14 +1,22 @@
 package com.example.mybrick
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.lifecycle.MutableLiveData
+import com.example.mybrick.database.DatabaseSingleton
+import com.example.mybrick.database.entity.Inventory
 import com.example.mybrick.xml.DownloadXmlTask
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class AddProject : AppCompatActivity(){
@@ -21,7 +29,16 @@ class AddProject : AppCompatActivity(){
         val inputProjectName = findViewById<EditText>(R.id.editTextName)
         val addButton = findViewById<Button>(R.id.addButton)
 
+        val progressBar: ProgressBar = findViewById(R.id.add_project_progressBar)
+        progressBar.isVisible = false
+
         val activity = this
+
+        addButton.setOnClickListener {
+            progressBar.isVisible = true
+            addButton.isEnabled = false
+            DownloadXmlTask(this).execute()
+        }
 
         inputNumber.addTextChangedListener(object : TextWatcher {
 
@@ -78,5 +95,17 @@ class AddProject : AppCompatActivity(){
 
 
 
+    }
+
+    val inventoriesLiveData: MutableLiveData<List<Inventory>> by lazy {
+        MutableLiveData<List<Inventory>>()
+    }
+
+    fun loadInventoriesList() {
+        Thread {
+            val alsoArchived: Boolean = getSharedPreferences("Preferences", MODE_PRIVATE).getBoolean(resources.getString(R.string.show_archived), false)
+
+            inventoriesLiveData.postValue(DatabaseSingleton.getInstance(this).InventoriesDAO().findAll(alsoArchived))
+        }.start()
     }
 }

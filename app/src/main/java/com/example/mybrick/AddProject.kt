@@ -1,22 +1,19 @@
 package com.example.mybrick
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.Inventory
 import com.example.mybrick.xml.DownloadXmlTask
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class AddProject : AppCompatActivity(){

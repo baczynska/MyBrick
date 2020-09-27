@@ -1,15 +1,21 @@
 package com.example.mybrick.xml
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.os.AsyncTask
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
+import java.io.IOException
+import java.io.InputStream
+import java.lang.NullPointerException
+import java.net.HttpURLConnection
+import java.net.URL
+import java.time.Instant
+import android.content.Intent
+import android.os.AsyncTask
+import kotlin.jvm.Throws
 import com.example.mybrick.AboutProjectActivity
 import com.example.mybrick.AddProject
 import com.example.mybrick.R
@@ -20,13 +26,6 @@ import com.example.mybrick.database.entity.InventoryPart
 import com.example.mybrick.settings
 import com.example.mybrick.xml.exceptions.PartNotFound
 import org.xmlpull.v1.XmlPullParserException
-import java.io.IOException
-import java.io.InputStream
-import java.lang.NullPointerException
-import java.net.HttpURLConnection
-import java.net.URL
-import java.time.Instant
-import kotlin.jvm.Throws
 
 class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void, String>() {
 
@@ -74,8 +73,13 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
         super.onPostExecute(result)
 
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+
             val intent = Intent(activity, AboutProjectActivity::class.java)
-            intent.putExtra("name", inputName)
+            if( inputName.isNotEmpty()){
+                    intent.putExtra("name", inputName)}
+            else{
+                    intent.putExtra("name", inputId)
+                }
             activity.startActivity(intent)
         }
 
@@ -91,7 +95,7 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
             val builder = AlertDialog.Builder(activity)
             builder.setMessage(result)
                 .setPositiveButton("Go to project", dialogClickListener)
-                .setNegativeButton("Bact to menu", finishActivity).show()
+                .setNegativeButton("Back to menu", finishActivity).show()
         }
 
 

@@ -7,10 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.InventoryPart
 
-class LayoutRowData(
-    context: Context,
-    item: InventoryPart,
-) {
+class LayoutRowData( context: Context, item: InventoryPart, ) {
     var id: Int
     var title: String
     var description: String
@@ -20,7 +17,9 @@ class LayoutRowData(
 
     init {
         val databaseSingleton: DatabaseSingleton = DatabaseSingleton.getInstance(context)
+        
         id = item.id
+
         title = databaseSingleton.PartsDAO().findById(item.itemID)?.let {
             it.namePL ?: it.name
         } ?: ""

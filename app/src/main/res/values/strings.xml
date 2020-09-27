@@ -13,4 +13,6 @@
     <string name="archive_question">\"Are you sure you want to archive this project\"</string>
     <string name="unarchive_question">\"Are you sure you want to unarchive this project?\"</string>
     <string name="defaultSourceUrl">\"http://fcds.cs.put.poznan.pl/MyWeb/BL/\"</string>
+    <string name="export_success">"Success! Saved in: "</string>
+    <string name="export_error">Error. File couldn\'t be created</string>
 </resources>

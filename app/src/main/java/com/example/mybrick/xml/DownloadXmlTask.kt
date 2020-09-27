@@ -33,7 +33,7 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
         activity.findViewById<EditText>(R.id.editTextNumber).editableText.toString()
     val inputName: String =
         activity.findViewById<EditText>(R.id.editTextName).editableText.toString()
-    var broken: Boolean = false
+    var err: Boolean = false
 
     override fun doInBackground(vararg urls: String): String {
         val sharedPref =
@@ -48,26 +48,26 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
             if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO()
                     .checkIfExistsById(this)
             ) {
-                broken = true
+                err = true
                 return activity.application.resources.getString(R.string.id_exists_error)
             }
         } ?: run {
-            broken = true
+            err = true
             return activity.application.resources.getString(R.string.not_a_number)
         }
         if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO()
                 .checkIfExistsByName(inputName)
         ) {
-            broken = true
+            err = true
             return activity.application.resources.getString(R.string.name_repeated_error)
         }
         return try {
             loadXmlFromNetwork("$sourceUrl$inputId.xml", inputId, inputName)
         } catch (e: IOException) {
-            broken = true
+            err = true
             activity.application.resources.getString(R.string.connectionError)
         } catch (e: XmlPullParserException) {
-            broken = true
+            err = true
             activity.application.resources.getString(R.string.xmlError)
         }
     }
@@ -81,7 +81,7 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
             activity.startActivity(intent)
         }
 
-        if (broken) {
+        if (err) {
             // show error
             val builder = AlertDialog.Builder(activity)
             builder.setMessage(result).setPositiveButton("OK", null)

@@ -77,8 +77,12 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
 
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
             val intent = Intent(activity, AboutProjectActivity::class.java)
-            intent.putExtra("inventoryName", inputName)
+            intent.putExtra("name", inputName)
             activity.startActivity(intent)
+        }
+
+        val dialogClickListener2 = DialogInterface.OnClickListener { dialog, which ->
+            activity.finish()
         }
 
         if (err) {
@@ -87,11 +91,11 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
             builder.setMessage(result).setPositiveButton("OK", null)
                 .show()
         } else {
-            // show view with decision what to do next
+
             val builder = AlertDialog.Builder(activity)
             builder.setMessage(result)
                 .setPositiveButton("Go to project", dialogClickListener)
-                .setNegativeButton("Bact to menu", null).show()
+                .setNegativeButton("Bact to menu", dialogClickListener2).show()
         }
 
 
@@ -147,7 +151,6 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
             connectTimeout = 15000
             requestMethod = "GET"
             doInput = true
-            // Starts the query
             connect()
             inputStream
         }
@@ -197,7 +200,7 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
         downloadFromUrl(url)?.use {
             return it.readBytes()
         }
-        throw IOException("Cannot found image for this part")
+        throw IOException("Image for this part not found")
     }
 
     private fun concatMessageWithInfoAboutNotFoundParts(

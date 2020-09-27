@@ -29,7 +29,7 @@ class AboutProjectActivity : AppCompatActivity() {
 
         val title = findViewById<TextView>(R.id.textView_title)
         inventoryName = intent.getStringExtra("name")
-            ?: throw Throwable("InventoryName not passed")
+            ?: throw Throwable("Name not passed")
 
         title.text = inventoryName
 

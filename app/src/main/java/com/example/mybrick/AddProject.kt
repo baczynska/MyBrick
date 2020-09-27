@@ -34,12 +34,6 @@ class AddProject : AppCompatActivity(){
 
         val activity = this
 
-        addButton.setOnClickListener {
-            progressBar.isVisible = true
-            addButton.isEnabled = false
-            DownloadXmlTask(this).execute()
-        }
-
         inputNumber.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
@@ -64,16 +58,16 @@ class AddProject : AppCompatActivity(){
 
         addButton.setOnClickListener{
 
+            progressBar.isVisible = true
+
             val dialogClickListener =
                 DialogInterface.OnClickListener { dialog, which ->
                     when (which) {
                         DialogInterface.BUTTON_POSITIVE -> {
                             addButton.isEnabled = false
                             DownloadXmlTask(activity).execute()
-
                         }
                         DialogInterface.BUTTON_NEGATIVE -> {
-
                         }
                     }
                 }
@@ -88,13 +82,7 @@ class AddProject : AppCompatActivity(){
                 addButton.isEnabled = false
                 DownloadXmlTask(activity).execute()
             }
-
-
         }
-
-
-
-
     }
 
     val inventoriesLiveData: MutableLiveData<List<Inventory>> by lazy {

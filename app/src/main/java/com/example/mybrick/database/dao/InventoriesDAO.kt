@@ -22,7 +22,10 @@ interface InventoriesDAO {
     fun insert(newInventory: Inventory)
 
     @Delete
-    fun delete(inventories: List<Inventory>)
+    fun delete(inventories: Inventory)
+
+    @Delete
+    fun deleteList(inventories: List<Inventory>)
 
     @Query("SELECT Id FROM Inventories WHERE Name = :name LIMIT 1")
     fun findIdByName(name: String): Int?
@@ -31,8 +34,12 @@ interface InventoriesDAO {
     @Update
     fun update(inventory: Inventory)
 
+    fun deleteThis(name: String){
+        delete(getByName(name))
+    }
+
     fun deleteAll() {
-        delete(findAll())
+        deleteList(findAll())
     }
 
     fun updateLastAccessTime(inventoryName: String) {

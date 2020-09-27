@@ -4,40 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#DC5A5A"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/addProjectButton"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="28dp"
-        android:background="#23DA03"
-        android:text="Add Project"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="44dp"
+        android:background="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="442dp"
-        android:layout_height="645dp"
+        android:layout_width="392dp"
+        android:layout_height="660dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/settingsButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="28dp"
-        android:background="#FFBE3B"
-        android:text="SETTINGS"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="44dp"
+        android:background="@android:drawable/ic_menu_manage"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_deleteAll"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="44dp"
+        android:background="@android:drawable/ic_menu_delete"
+        android:backgroundTint="#E60606"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/Settings_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SETTINGS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsButton" />
+
+    <TextView
+        android:id="@+id/AddNewProject_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add New Project"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="@+id/addProjectButton"
+        app:layout_constraintStart_toStartOf="@+id/addProjectButton"
+        app:layout_constraintTop_toBottomOf="@+id/addProjectButton" />
+
+    <TextView
+        android:id="@+id/DeleteAllProjects_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete All Projects"
+        android:textColor="@color/design_default_color_error"
+        app:layout_constraintEnd_toEndOf="@+id/button_deleteAll"
+        app:layout_constraintStart_toStartOf="@+id/button_deleteAll"
+        app:layout_constraintTop_toBottomOf="@+id/button_deleteAll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

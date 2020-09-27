@@ -7,25 +7,37 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/inventoryCode"
+        android:layout_width="157dp"
+        android:layout_height="37dp"
+        android:text="Kod projektu"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/inventoryName"
+        app:layout_constraintStart_toStartOf="@+id/inventoryName"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryName" />
+
+    <TextView
         android:id="@+id/inventoryRowLastAccessValue"
         android:layout_width="102dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="5dp"
         android:text="12.12.1212"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/inventoryRowName"
-        android:layout_width="162dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="16dp"
+        android:id="@+id/inventoryName"
+        android:layout_width="153dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="15dp"
         android:text="Nazwa Projektu"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/inventoryRowLastAccessLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +46,7 @@
         android:layout_width="85dp"
         android:layout_height="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="10dp"
         android:text="Last Access:"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/inventoryRowLastAccessValue"

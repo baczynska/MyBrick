@@ -16,29 +16,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0e90c5c8-900d-49ff-91e9-e6ad58485bd2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/BrickList.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/BrickList.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AboutProjectActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AboutProjectActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AddProject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/AddProject.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/InventoryAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/InventoryAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesDAO.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/SettingsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/SettingsActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesPartsDAO.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/database/dao/InventoriesPartsDAO.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/xml/DownloadXmlTask.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mybrick/xml/DownloadXmlTask.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_inventory.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_inventory.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -272,7 +256,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601194274761</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="new layout">
+      <created>1601213549070</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1601213549070</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -280,7 +271,8 @@
     <MESSAGE value="colorsDAO improved" />
     <MESSAGE value="works ok but without exporting xml" />
     <MESSAGE value="everything works" />
-    <option name="LAST_COMMIT_MESSAGE" value="everything works" />
+    <MESSAGE value="new layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="new layout" />
   </component>
   <component name="WindowStateProjectService">
     <state x="513" y="287" width="950" height="530" key="#PSD" timestamp="1598023469063">
@@ -319,39 +311,39 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="958" y="387" width="824" height="484" key="AndroidCreateResourceFileDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1598200161852" />
-    <state x="402" y="410" width="292" height="398" key="AndroidCreateXmlResourceDialog" timestamp="1601156910451">
+    <state x="402" y="410" width="292" height="398" key="AndroidCreateXmlResourceDialog" timestamp="1601226285511">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
-    <state x="402" y="410" width="292" height="398" key="AndroidCreateXmlResourceDialog/72.29.1848.1051@72.29.1848.1051" timestamp="1601156910451" />
-    <state x="604" y="131" width="1002" height="854" key="CommitChangelistDialog2" timestamp="1601194274024">
+    <state x="402" y="410" width="292" height="398" key="AndroidCreateXmlResourceDialog/72.29.1848.1051@72.29.1848.1051" timestamp="1601226285511" />
+    <state x="604" y="131" width="1002" height="854" key="CommitChangelistDialog2" timestamp="1601213548280">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="600" y="129" width="777" height="847" key="CommitChangelistDialog2/67.27.1853.1053@67.27.1853.1053" timestamp="1597767366545" />
-    <state x="604" y="131" width="1002" height="854" key="CommitChangelistDialog2/72.29.1848.1051@72.29.1848.1051" timestamp="1601194274024" />
+    <state x="604" y="131" width="1002" height="854" key="CommitChangelistDialog2/72.29.1848.1051@72.29.1848.1051" timestamp="1601213548280" />
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl" timestamp="1597331667702">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="776" y="310" width="424" height="484" key="FileChooserDialogImpl/67.27.1853.1053@67.27.1853.1053" timestamp="1597331667702" />
-    <state width="1802" height="110" key="GridCell.Tab.0.bottom" timestamp="1601202059311">
+    <state width="1802" height="108" key="GridCell.Tab.0.bottom" timestamp="1601229941795">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1807" height="446" key="GridCell.Tab.0.bottom/67.27.1853.1053@67.27.1853.1053" timestamp="1598553452834" />
-    <state width="1802" height="110" key="GridCell.Tab.0.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1601202059311" />
-    <state width="1802" height="110" key="GridCell.Tab.0.center" timestamp="1601202059310">
+    <state width="1802" height="108" key="GridCell.Tab.0.bottom/72.29.1848.1051@72.29.1848.1051" timestamp="1601229941795" />
+    <state width="1802" height="108" key="GridCell.Tab.0.center" timestamp="1601229941794">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1807" height="446" key="GridCell.Tab.0.center/67.27.1853.1053@67.27.1853.1053" timestamp="1598553452833" />
-    <state width="1802" height="110" key="GridCell.Tab.0.center/72.29.1848.1051@72.29.1848.1051" timestamp="1601202059310" />
-    <state width="1802" height="110" key="GridCell.Tab.0.left" timestamp="1601202059310">
+    <state width="1802" height="108" key="GridCell.Tab.0.center/72.29.1848.1051@72.29.1848.1051" timestamp="1601229941794" />
+    <state width="1802" height="108" key="GridCell.Tab.0.left" timestamp="1601229941793">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1807" height="446" key="GridCell.Tab.0.left/67.27.1853.1053@67.27.1853.1053" timestamp="1598553452825" />
-    <state width="1802" height="110" key="GridCell.Tab.0.left/72.29.1848.1051@72.29.1848.1051" timestamp="1601202059310" />
-    <state width="1802" height="110" key="GridCell.Tab.0.right" timestamp="1601202059311">
+    <state width="1802" height="108" key="GridCell.Tab.0.left/72.29.1848.1051@72.29.1848.1051" timestamp="1601229941793" />
+    <state width="1802" height="108" key="GridCell.Tab.0.right" timestamp="1601229941794">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state width="1807" height="446" key="GridCell.Tab.0.right/67.27.1853.1053@67.27.1853.1053" timestamp="1598553452834" />
-    <state width="1802" height="110" key="GridCell.Tab.0.right/72.29.1848.1051@72.29.1848.1051" timestamp="1601202059311" />
+    <state width="1802" height="108" key="GridCell.Tab.0.right/72.29.1848.1051@72.29.1848.1051" timestamp="1601229941794" />
     <state width="868" height="341" key="GridCell.Tab.1.bottom" timestamp="1601157123925">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
@@ -376,10 +368,10 @@
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="72" y="189" width="1022" height="737" key="SettingsEditor/72.29.1848.1051@72.29.1848.1051" timestamp="1601113621950" />
-    <state x="591" y="290" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601116733825">
+    <state x="591" y="290" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1601213791142">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
-    <state x="591" y="290" width="800" height="535" key="Vcs.Push.Dialog.v2/72.29.1848.1051@72.29.1848.1051" timestamp="1601116733825" />
+    <state x="591" y="290" width="800" height="535" key="Vcs.Push.Dialog.v2/72.29.1848.1051@72.29.1848.1051" timestamp="1601213791142" />
     <state x="765" y="332" width="446" height="440" key="chooseDestDirectoryDialog" timestamp="1598102508474">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
@@ -388,16 +380,16 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="167" y="125" width="1653" height="855" key="com.android.tools.idea.avdmanager.AvdListDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1598023659976" />
-    <state x="186" y="382" key="com.intellij.ide.util.TipDialog" timestamp="1601206055909">
+    <state x="186" y="382" key="com.intellij.ide.util.TipDialog" timestamp="1601217061454">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="181" y="381" key="com.intellij.ide.util.TipDialog/67.27.1853.1053@67.27.1853.1053" timestamp="1598461176826" />
-    <state x="186" y="382" key="com.intellij.ide.util.TipDialog/72.29.1848.1051@72.29.1848.1051" timestamp="1601206055909" />
-    <state x="648" y="163" width="855" height="779" key="find.popup" timestamp="1601116162735">
+    <state x="186" y="382" key="com.intellij.ide.util.TipDialog/72.29.1848.1051@72.29.1848.1051" timestamp="1601217061454" />
+    <state x="806" y="183" width="855" height="779" key="find.popup" timestamp="1601229915470">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>
     <state x="645" y="162" width="855" height="780" key="find.popup/67.27.1853.1053@67.27.1853.1053" timestamp="1598300719431" />
-    <state x="648" y="163" width="855" height="779" key="find.popup/72.29.1848.1051@72.29.1848.1051" timestamp="1601116162735" />
+    <state x="806" y="183" width="855" height="779" key="find.popup/72.29.1848.1051@72.29.1848.1051" timestamp="1601229915470" />
     <state x="741" y="198" width="501" height="720" key="refactoring.ChangeSignatureDialog" timestamp="1601212455792">
       <screen x="72" y="29" width="1848" height="1051" />
     </state>

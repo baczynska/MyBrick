@@ -29,46 +29,44 @@ import java.time.Instant
 import kotlin.jvm.Throws
 
 class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void, String>() {
-    val inputId: String =
-        activity.findViewById<EditText>(R.id.editTextNumber).editableText.toString()
-    val inputName: String =
-        activity.findViewById<EditText>(R.id.editTextName).editableText.toString()
+
+    val inputId: String = activity.findViewById<EditText>(R.id.editTextNumber).editableText.toString()
+    val inputName: String = activity.findViewById<EditText>(R.id.editTextName).editableText.toString()
     var err: Boolean = false
 
     override fun doInBackground(vararg urls: String): String {
-        val sharedPref =
-            activity.getSharedPreferences("Preference",
-                Context.MODE_PRIVATE)
-        val sourceUrl = sharedPref.getString(
-            "sourceUrl",
-            settings.url.toString()
-        )
+        val sharedPref = activity.getSharedPreferences("mySettings", Context.MODE_PRIVATE)
+        val sourceUrl = sharedPref.getString("sourceUrl", settings.url )
 
-        inputId.toIntOrNull()?.run {
-            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO()
-                    .checkIfExistsById(this)
-            ) {
+        val inputIdAsInt = inputId.toIntOrNull()
+
+        if (inputIdAsInt != null) {
+
+            // to id już istnieje
+            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkIfExistsById(inputIdAsInt)) {
                 err = true
                 return activity.application.resources.getString(R.string.id_exists_error)
             }
-        } ?: run {
+
+            // ta nazwa już istnieje
+            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkIfExistsByName(inputName)) {
+                err = true
+                return activity.application.resources.getString(R.string.name_repeated_error)
+            }
+
+        } else {
             err = true
             return activity.application.resources.getString(R.string.not_a_number)
         }
-        if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO()
-                .checkIfExistsByName(inputName)
-        ) {
+
+        try {
+            return loadXmlFromNetwork("$sourceUrl$inputId.xml", inputId, inputName) }
+        catch (e: IOException) {
             err = true
-            return activity.application.resources.getString(R.string.name_repeated_error)
-        }
-        return try {
-            loadXmlFromNetwork("$sourceUrl$inputId.xml", inputId, inputName)
-        } catch (e: IOException) {
-            err = true
-            activity.application.resources.getString(R.string.connectionError)
+            return activity.application.resources.getString(R.string.connectionError)
         } catch (e: XmlPullParserException) {
             err = true
-            activity.application.resources.getString(R.string.xmlError)
+            return activity.application.resources.getString(R.string.xmlError)
         }
     }
 
@@ -81,21 +79,19 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
             activity.startActivity(intent)
         }
 
-        val dialogClickListener2 = DialogInterface.OnClickListener { dialog, which ->
+        val finishActivity = DialogInterface.OnClickListener { dialog, which ->
             activity.finish()
         }
 
         if (err) {
-            // show error
             val builder = AlertDialog.Builder(activity)
-            builder.setMessage(result).setPositiveButton("OK", null)
-                .show()
+            builder.setMessage(result).setPositiveButton("OK", null).show()
         } else {
 
             val builder = AlertDialog.Builder(activity)
             builder.setMessage(result)
                 .setPositiveButton("Go to project", dialogClickListener)
-                .setNegativeButton("Bact to menu", dialogClickListener2).show()
+                .setNegativeButton("Bact to menu", finishActivity).show()
         }
 
 
@@ -107,46 +103,44 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
     }
 
     @Throws(XmlPullParserException::class, IOException::class)
-    private fun loadXmlFromNetwork(
-        urlString: String,
-        inventoryId: String,
-        inventoryName: String,
-    ): String {
-        val parts: HashMap<String, List<*>>? =
-            downloadFromUrl(urlString)?.use(XMLParser(activity.application)::parse)
+    private fun loadXmlFromNetwork( urlString: String, inventoryId: String, inventoryName: String, ): String {
+
+        val parts: HashMap<String, List<*>>? = downloadFromUrl(urlString)?.use(XMLParser(activity.application)::parse)
+
         if (parts != null) {
 
+            var inventoryNameToSave = inventoryId
+            val currentTime = Instant.now().epochSecond
+
+            if (inventoryName.length > 0){
+                inventoryNameToSave = inventoryName
+            }
+
             DatabaseSingleton.getInstance(activity.applicationContext).InventoriesDAO().insert(
-                Inventory(
-                    inventoryId.toInt(),
-                    if (inventoryName == "") inventoryId else inventoryName,
-                    lastAccess = Instant.now().epochSecond.toInt()
-                )
+                Inventory( inventoryId.toInt(), inventoryNameToSave, lastAccess = currentTime.toInt())
             )
-            val notFoundParts = ArrayList<String>(parts["itemsNotFound"] as List<String>)
+            val partsNotFounded = ArrayList<String>(parts["itemsNotFound"] as List<String>)
             (parts["items"] as List<Entry>).forEach {
                 try {
-                    val newInventoryPart: InventoryPart =
-                        it.castToInventoryPart(inventoryId.toInt())
+                    val newInventoryPart: InventoryPart = it.castToInventoryPart(inventoryId.toInt())
+
                     saveImage(newInventoryPart, activity.applicationContext)
-                    DatabaseSingleton.getInstance(activity.applicationContext).InventoriesPartsDAO()
-                        .insertPart(newInventoryPart)
+
+                    DatabaseSingleton.getInstance(activity.applicationContext).InventoriesPartsDAO().insertPart(newInventoryPart)
                 } catch (e: NullPointerException) {
-                    notFoundParts.add(PartNotFound.createMessage(it.itemID, it.colorID))
+                    partsNotFounded.add(PartNotFound.createMessage(it.itemID, it.colorID))
                 }
             }
-            return concatMessageWithInfoAboutNotFoundParts(activity.application.resources.getString(
-                R.string.xmlSuccess), notFoundParts)
+            return activity.application.resources.getString(R.string.xmlSuccess)
         }
         return activity.application.resources.getString(R.string.xmlError)
     }
 
-    // Given a string representation of a URL, sets up a connection and gets
-    // an input stream.
+
     @Throws(IOException::class)
     private fun downloadFromUrl(urlString: String): InputStream? {
-        val url = URL(urlString)
-        return (url.openConnection() as? HttpURLConnection)?.run {
+
+        return (URL(urlString).openConnection() as? HttpURLConnection)?.run {
             readTimeout = 10000
             connectTimeout = 15000
             requestMethod = "GET"
@@ -157,58 +151,48 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
     }
 
     private fun saveImage(part: InventoryPart, context: Context) {
-        // code jest rekordem w tabeli Code gdzie trzymamy obrazki
+
         val databaseSingleton = DatabaseSingleton.getInstance(context)
         val partCode = databaseSingleton.PartsDAO().findCodeById(part.itemID)
         val colorCode = databaseSingleton.ColorsDAO().findCodeById(part.colorId)
-        databaseSingleton.CodesDAO().findByItemIdAndColorId(
+
+        fun loadImage(): String {
+            if (colorCode != null) {
+                return "https://www.bricklink.com/P/$colorCode/$partCode.jpg" }
+            else {
+                return "https://www.bricklink.com/PL/$partCode.jpg" }
+        }
+
+        val partFounded = databaseSingleton.CodesDAO().findByItemIdAndColorId(
             part.itemID,
             part.colorId
-        )?.let { code: Code ->
-            if (partCode != null) {
-                val imageURL =
-                    if (colorCode != null) "https://www.bricklink.com/P/$colorCode/$partCode.jpg"
-                    else "https://www.bricklink.com/PL/$partCode.jpg"
-                if (code.image == null) {
-                    try {
-                        code.image = downloadImage(imageURL)
-                        DatabaseSingleton.getInstance(context).CodesDAO().updateCode(code)
-                    } catch (e: IOException) {
-                        //image not found
-                    }
-                }
+        )
+
+        if (partFounded != null) {
+            try {
+                partFounded.image = downloadImageWithURL(loadImage())
+                DatabaseSingleton.getInstance(context).CodesDAO().updateCode(partFounded)
+            } catch (e: IOException) {
+                throw IOException(activity.application.resources.getString(R.string.imageForPartNotFound))
             }
-        } ?: run {
-            if (partCode != null) {
-                val imageURL =
-                    if (colorCode != null) "https://www.bricklink.com/P/$colorCode/$partCode.jpg"
-                    else "https://www.bricklink.com/PL/$partCode.jpg"
-                var image: ByteArray? = null
-                try {
-                    image = downloadImage(imageURL)
-                } catch (e: IOException) {
-                    //image not found
-                }
+        } else{
+            try {
                 DatabaseSingleton.getInstance(context).CodesDAO()
-                    .insertNewCode(Code(0, part.itemID, part.colorId, null, image))
+                    .insertNewCode(Code(0, part.itemID, part.colorId, null, downloadImageWithURL(loadImage())))
+            } catch (e: IOException) {
+                throw IOException(activity.application.resources.getString(R.string.imageForPartNotFound))
             }
         }
     }
 
     @Throws(IOException::class)
-    private fun downloadImage(url: String): ByteArray {
-        downloadFromUrl(url)?.use {
-            return it.readBytes()
+    private fun downloadImageWithURL(url: String): ByteArray? {
+
+        try {
+            return downloadFromUrl(url)?.readBytes()
+        } catch (e: IOException) {
+            throw IOException(activity.application.resources.getString(R.string.imageForPartNotFound))
         }
-        throw IOException("Image for this part not found")
     }
 
-    private fun concatMessageWithInfoAboutNotFoundParts(
-        message: String,
-        notFoundParts: List<String>,
-    ): String {
-        message.plus("\n")
-        notFoundParts.forEach { message.plus("\n" + it) }
-        return message
-    }
 }

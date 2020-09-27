@@ -20,7 +20,7 @@ class SettingsActivity: AppCompatActivity() {
         pathPrefixOfURL = findViewById(R.id.pathPrefixOfUrlPlainText)
         showArchivedSwitch = findViewById(R.id.archivedSwitch)
         val saveButton = findViewById<Button>(R.id.saveButton)
-        sharedPref = getSharedPreferences("Preferences", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("mySettings", Context.MODE_PRIVATE)
         setActualValues()
 
         saveButton.setOnClickListener {

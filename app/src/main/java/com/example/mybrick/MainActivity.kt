@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadInventoriesList() {
         Thread {
-            val alsoArchived: Boolean = getSharedPreferences("Preferences", Context.MODE_PRIVATE).getBoolean(
+            val alsoArchived: Boolean = getSharedPreferences("mySettings", Context.MODE_PRIVATE).getBoolean(
                 resources.getString(
                     R.string.show_archived
                 ), false
@@ -64,11 +65,11 @@ class MainActivity : AppCompatActivity() {
 
         inventoriesLiveData.observe(this, inventoriesObserver)
 
-        listView.setOnItemClickListener { parent, view, position, id ->
+        listView.setOnItemClickListener { _, _, position, _ ->
             val element = listView.adapter.getItem(position) as Inventory
 
 
-            val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+            val dialogClickListener = DialogInterface.OnClickListener { _, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {
                         // przejscie do widoku projektu
@@ -77,18 +78,12 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                     DialogInterface.BUTTON_NEGATIVE -> {
-                        val dialogClickListener = DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
-                            when (which) {
-                                DialogInterface.BUTTON_POSITIVE -> {
-                                    Thread {
-                                        DatabaseSingleton.getInstance(this).InventoriesDAO()
-                                            .changeArchiveStatus(
-                                                element.name
-                                            )
-                                        loadInventoriesList()
-                                    }.start()
-                                }
-                            }
+                        val dialogClickListener = DialogInterface.OnClickListener { _: DialogInterface, _: Int ->
+                            Thread {
+                                DatabaseSingleton.getInstance(this).InventoriesDAO()
+                                    .changeArchiveStatus(element.name)
+                                loadInventoriesList()
+                            }.start()
                         }
 
                         val builder = AlertDialog.Builder(this)
@@ -98,14 +93,16 @@ class MainActivity : AppCompatActivity() {
                             )
                         )
                             .setPositiveButton("Yes", dialogClickListener)
-                            .setNegativeButton("No", dialogClickListener).show()
+                            .setNegativeButton("No", null).show()
                     }
                     DialogInterface.BUTTON_NEUTRAL -> {
 
-                        val deletingThis = DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
+                        val deletingThis = DialogInterface.OnClickListener { _: DialogInterface, _: Int ->
                             Thread {
                                 DatabaseSingleton.getInstance(this).InventoriesPartsDAO().deteteForThis(element.id)
                                 DatabaseSingleton.getInstance(this).InventoriesDAO().deleteThis(element.name)
+
+                                loadInventoriesList()
                             }.start()
                         }
 
@@ -148,29 +145,44 @@ class MainActivity : AppCompatActivity() {
             dialog.show()
 
         }
-        
 
-        val addProjectButton = findViewById<Button>(R.id.addProjectButton)
-        addProjectButton.setOnClickListener{
+        fun doingWhenAddProject(){
             val intent = Intent(this, AddProject::class.java)
             startActivity(intent)
         }
 
-        val settingsButton = findViewById<Button>(R.id.settingsButton)
-        settingsButton.setOnClickListener{
+        val addProjectButton = findViewById<Button>(R.id.addProjectButton)
+        val addProjectTextView = findViewById<TextView>(R.id.AddNewProject_textView)
+        addProjectButton.setOnClickListener{
+            doingWhenAddProject()
+        }
+        addProjectTextView.setOnClickListener{
+            doingWhenAddProject()
+        }
+
+        fun doingWhenSettings(){
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
-        val deleteButton = findViewById<Button>(R.id.button_deleteAll)
-        deleteButton.setOnClickListener{
+        val settingsButton = findViewById<Button>(R.id.settingsButton)
+        val settingsTextView = findViewById<TextView>(R.id.Settings_textView)
+        settingsButton.setOnClickListener{
+            doingWhenSettings()
+        }
+        settingsTextView.setOnClickListener{
+            doingWhenSettings()
+        }
 
+        fun doingWhenDelete(){
             val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
                 when (which) {
                     DialogInterface.BUTTON_POSITIVE -> {
                         Thread {
                             DatabaseSingleton.getInstance(this).InventoriesPartsDAO().deleteAll()
                             DatabaseSingleton.getInstance(this).InventoriesDAO().deleteAll()
+
+                            loadInventoriesList()
                         }.start()
                     }
                 }
@@ -182,14 +194,23 @@ class MainActivity : AppCompatActivity() {
                 .setPositiveButton("YES", dialogClickListener)
                 .setNeutralButton("CANCEL", null).create()
 
-                dialog.setOnShowListener {
-                    dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(cancelColor)
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(cancelColor)
 
-                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(deleteColor)
-                }
-                dialog.show()
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(deleteColor)
+            }
+            dialog.show()
+        }
 
-    }
+        val deleteButton = findViewById<Button>(R.id.button_deleteAll)
+        val deleteTextView = findViewById<TextView>(R.id.DeleteAllProjects_textView)
+        deleteButton.setOnClickListener{
+            doingWhenDelete()
+        }
+        deleteTextView.setOnClickListener{
+            doingWhenDelete()
+        }
+
     }
 }
 

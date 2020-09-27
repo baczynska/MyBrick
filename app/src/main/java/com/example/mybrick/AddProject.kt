@@ -61,22 +61,16 @@ class AddProject : AppCompatActivity(){
             progressBar.isVisible = true
 
             val dialogClickListener =
-                DialogInterface.OnClickListener { dialog, which ->
-                    when (which) {
-                        DialogInterface.BUTTON_POSITIVE -> {
-                            addButton.isEnabled = false
-                            DownloadXmlTask(activity).execute()
-                        }
-                        DialogInterface.BUTTON_NEGATIVE -> {
-                        }
-                    }
+                DialogInterface.OnClickListener { _, _ ->
+                    addButton.isEnabled = false
+                    DownloadXmlTask(activity).execute()
                 }
 
             if( inputProjectName.text.isEmpty()) {
                 val builder = AlertDialog.Builder(this)
                 builder.setMessage("Are you sure you want to add project without name")
                     .setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show()
+                    .setNegativeButton("No", null).show()
             }
             else{
                 addButton.isEnabled = false
@@ -91,7 +85,7 @@ class AddProject : AppCompatActivity(){
 
     fun loadInventoriesList() {
         Thread {
-            val alsoArchived: Boolean = getSharedPreferences("Preferences", MODE_PRIVATE).getBoolean(resources.getString(R.string.show_archived), false)
+            val alsoArchived: Boolean = getSharedPreferences("mySettings", MODE_PRIVATE).getBoolean(resources.getString(R.string.show_archived), false)
 
             inventoriesLiveData.postValue(DatabaseSingleton.getInstance(this).InventoriesDAO().findAll(alsoArchived))
         }.start()

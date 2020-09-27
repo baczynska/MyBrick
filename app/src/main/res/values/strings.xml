@@ -15,4 +15,5 @@
     <string name="defaultSourceUrl">http://fcds.cs.put.poznan.pl/MyWeb/BL/</string>
     <string name="export_success">Success! Saved in: </string>
     <string name="export_error">Error. File couldn\'t be created</string>
+    <string name="imageForPartNotFound">Image for this part not found</string>
 </resources>

@@ -9,9 +9,6 @@ interface InventoriesPartsDAO {
     @Insert
     fun insertPart(part: InventoryPart)
 
-//    @Query("SELECT * FROM InventoriesParts WHERE Name = :name")
-//    fun getByName(name: String): Inventory
-
     @Delete
     fun delete(inventories: Inventory)
 

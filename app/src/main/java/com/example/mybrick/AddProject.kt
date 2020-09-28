@@ -13,7 +13,7 @@ import android.widget.ProgressBar
 import androidx.lifecycle.MutableLiveData
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.Inventory
-import com.example.mybrick.xml.DownloadXmlTask
+import com.example.mybrick.xml.xmlDownload
 
 
 class AddProject : AppCompatActivity(){
@@ -60,7 +60,7 @@ class AddProject : AppCompatActivity(){
             val dialogClickListener =
                 DialogInterface.OnClickListener { _, _ ->
                     addButton.isEnabled = false
-                    DownloadXmlTask(activity).execute()
+                    xmlDownload(activity).execute()
                 }
 
             if( inputProjectName.text.isEmpty()) {
@@ -71,7 +71,7 @@ class AddProject : AppCompatActivity(){
             }
             else{
                 addButton.isEnabled = false
-                DownloadXmlTask(activity).execute()
+                xmlDownload(activity).execute()
             }
         }
     }

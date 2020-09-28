@@ -8,8 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.InventoryPart
-import com.example.mybrick.xml.XMLWriter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.mybrick.xml.xmlWriter
 
 class AboutProjectActivity : AppCompatActivity() {
     private val inventoriesPartsLiveData: MutableLiveData<List<LayoutRowData>> by lazy {
@@ -44,7 +43,7 @@ class AboutProjectActivity : AppCompatActivity() {
                     val inventoryId = DatabaseSingleton.getInstance(context).InventoriesDAO().findIdByName(inventoryName)
                     if (inventoryId != null) {
                         getPartsListWithActual(partsListWithActualQuantityInStore, false)?.let {partsList ->
-                            XMLWriter.writeXML(inventoryId, partsList, context)
+                            xmlWriter.writeXML(inventoryId, partsList, context)
                         }
                     }
                 }.start()

@@ -20,25 +20,82 @@ class ItemAdapter(
     private val doneColor = Color.parseColor("#E91E63")
     private val mainColor = Color.WHITE
 
+    private fun myInit(rowView: View, data: LayoutRowData) {
+
+        val maxItems: TextView = rowView.findViewById(R.id.textView_maxElements)
+        maxItems.text = data.quantityInSet.toString()
+
+        val itemNumber: TextView = rowView.findViewById(R.id.integer_number)
+        itemNumber.text = data.quantityInStore.toString()
+
+        val label: TextView = rowView.findViewById(R.id.textView_top)
+        label.text = data.name
+
+        val description: TextView = rowView.findViewById(R.id.textView_down)
+        description.text = data.description
+
+        val image: ImageView = rowView.findViewById(R.id.imageView)
+        image.setImageBitmap(data.imageMap)
+
+        if( (data.quantityInSet == data.quantityInStore)){
+
+            (maxItems.parent as ConstraintLayout).setBackgroundColor(doneColor)
+
+        } else {
+
+            (maxItems.parent as ConstraintLayout).setBackgroundColor(mainColor)
+
+        }
+    }
+
+
+    private fun plusOrMinusOne(diff: Int, clickedButton: View, position: Int) {
+
+        val itemList = clickedButton.parent as LinearLayout
+
+        for (i: Int in 0 until itemList.childCount) {
+
+            val child: View = itemList[i]
+
+            if (child.id == R.id.integer_number) {
+
+                val numberOfItems = items[position].quantityInStore
+                val maxItems = items[position].quantityInSet
+                if( (numberOfItems > 0) and (numberOfItems < maxItems)) {
+
+                    val numberOfItemsNow = numberOfItems + diff
+                    items[position].quantityInStore = numberOfItemsNow
+                    (child as TextView).text = numberOfItemsNow.toString()
+
+                    if ( numberOfItemsNow == maxItems)
+                        (itemList.parent as ConstraintLayout).setBackgroundColor(doneColor)
+                    else
+                        (itemList.parent as ConstraintLayout).setBackgroundColor(mainColor)
+                }
+            }
+        }
+    }
+
+
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val layoutInflater = LayoutInflater.from(context)
-        val rowView = layoutInflater.inflate(R.layout.row_item, parent, false)
+        val thisRow = layoutInflater.inflate(R.layout.row_item, parent, false)
         val item: LayoutRowData = items[position]
 
-        fillLayout(rowView, item)
+        myInit(thisRow, item)
 
-        val increase = rowView.findViewById<Button>(R.id.increase)
-        val decrease = rowView.findViewById<Button>(R.id.decrease)
+        val increase = thisRow.findViewById<Button>(R.id.increase)
+        val decrease = thisRow.findViewById<Button>(R.id.decrease)
 
         increase.setOnClickListener {
-            changePartsQuantity(1, it, position)
+            plusOrMinusOne(1, it, position)
         }
         decrease.setOnClickListener {
-            changePartsQuantity(-1, it, position)
+            plusOrMinusOne(-1, it, position)
         }
 
-        return rowView
+        return thisRow
     }
 
     override fun getItem(position: Int): Any {
@@ -53,42 +110,8 @@ class ItemAdapter(
         return items.size
     }
 
-    private fun fillLayout(rowView: View, data: LayoutRowData) {
-        val maxElements: TextView = rowView.findViewById(R.id.textView_maxElements)
-        val itemsNumberElement: TextView = rowView.findViewById(R.id.integer_number)
-        val mainLabel: TextView = rowView.findViewById(R.id.textView_top)
-        val descriptionLabel: TextView = rowView.findViewById(R.id.textView_down)
-        val imageView: ImageView = rowView.findViewById(R.id.imageView)
 
-        maxElements.text = data.quantityInSet.toString()
-        itemsNumberElement.text = data.quantityInStore.toString()
-        mainLabel.text = data.title
-        descriptionLabel.text = data.description
-        imageView.setImageBitmap(data.imageBitmap)
 
-        if( (data.quantityInSet == data.quantityInStore)){
-            (maxElements.parent as ConstraintLayout).setBackgroundColor(doneColor)
-        } else {
-            (maxElements.parent as ConstraintLayout).setBackgroundColor(mainColor)
-        }
-    }
 
-    private fun changePartsQuantity(change: Int, clickedButton: View, position: Int) {
-        val listItem = clickedButton.parent as LinearLayout
-        for (i: Int in 0 until listItem.childCount) {
-            val child: View = listItem[i]
-            if (child.id == R.id.integer_number) {
-                val newQuantity: Int = items[position].quantityInStore + change
-                if( 0 <= newQuantity && newQuantity <= items[position].quantityInSet) {
-                    items[position].quantityInStore = newQuantity
-                    (child as TextView).text = "$newQuantity"
-                    if ( newQuantity == items[position].quantityInSet)
-                        (listItem.parent as ConstraintLayout).setBackgroundColor(doneColor)
-                    else
-                        (listItem.parent as ConstraintLayout).setBackgroundColor(mainColor)
-                }
-            }
-        }
-    }
 
 }

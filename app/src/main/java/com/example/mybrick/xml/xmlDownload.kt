@@ -23,11 +23,9 @@ import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.Code
 import com.example.mybrick.database.entity.Inventory
 import com.example.mybrick.database.entity.InventoryPart
-import com.example.mybrick.settings
-import com.example.mybrick.xml.exceptions.PartNotFound
 import org.xmlpull.v1.XmlPullParserException
 
-class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void, String>() {
+class xmlDownload(private val activity: AddProject) : AsyncTask<String, Void, String>() {
 
     val inputId: String = activity.findViewById<EditText>(R.id.editTextNumber).editableText.toString()
     val inputName: String = activity.findViewById<EditText>(R.id.editTextName).editableText.toString()
@@ -35,7 +33,7 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
 
     override fun doInBackground(vararg urls: String): String {
         val sharedPref = activity.getSharedPreferences("mySettings", Context.MODE_PRIVATE)
-        val sourceUrl = sharedPref.getString("sourceUrl", settings.url )
+        val sourceUrl = sharedPref.getString("sourceUrl", activity.application.resources.getString(R.string.url) )
 
         val inputIdAsInt = inputId.toIntOrNull()
 
@@ -132,7 +130,7 @@ class DownloadXmlTask(private val activity: AddProject) : AsyncTask<String, Void
 
                     DatabaseSingleton.getInstance(activity.applicationContext).InventoriesPartsDAO().insertPart(newInventoryPart)
                 } catch (e: NullPointerException) {
-                    partsNotFounded.add(PartNotFound.createMessage(it.itemID, it.colorID))
+                    partsNotFounded.add(partNotFound.createMessage(it.itemID, it.colorID))
                 }
             }
             return activity.application.resources.getString(R.string.xmlSuccess)

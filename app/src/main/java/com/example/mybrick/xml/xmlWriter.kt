@@ -16,7 +16,7 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-class XMLWriter {
+class xmlWriter {
     companion object {
         fun writeXML(inventoryNo: Int, partsList: List<InventoryPart>, context: Activity) {
             val docBuilder: DocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()

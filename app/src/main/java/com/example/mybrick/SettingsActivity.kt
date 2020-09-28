@@ -35,10 +35,8 @@ class SettingsActivity: AppCompatActivity() {
         super.onPause()
     }
 
-
-
     private fun setActualValues() {
-        pathPrefixOfURL.setText(sharedPref.getString(resources.getString(R.string.source_url), resources.getString(R.string.defaultSourceUrl)))
+        pathPrefixOfURL.setText(sharedPref.getString(resources.getString(R.string.source_url), resources.getString(R.string.url)))
         showArchivedSwitch.isChecked = sharedPref.getBoolean(resources.getString(R.string.show_archived), false)
     }
 

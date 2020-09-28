@@ -5,7 +5,6 @@ import android.util.Xml
 import androidx.lifecycle.AndroidViewModel
 import com.example.mybrick.database.DatabaseSingleton
 import com.example.mybrick.database.entity.InventoryPart
-import com.example.mybrick.xml.exceptions.PartNotFound
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -53,7 +52,7 @@ class XMLParser(application: Application) : AndroidViewModel(application) {
                     items.add(readItemProperties(parser))
                 } catch (e: XmlPullParserException) {
                     continue
-                } catch (e: PartNotFound) {
+                } catch (e: partNotFound) {
                     itemsNotFound.add(e.message!!)
                 }
             }
@@ -64,7 +63,7 @@ class XMLParser(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    @Throws(XmlPullParserException::class, PartNotFound::class)
+    @Throws(XmlPullParserException::class, partNotFound::class)
     private fun readItemProperties(parser: XmlPullParser): Entry {
         val part = Entry()
         var isAlternateN: Boolean = false
@@ -98,7 +97,7 @@ class XMLParser(application: Application) : AndroidViewModel(application) {
             }
         }
         if (!isAlternateN) throw XmlPullParserException("ALTERNATE != N")
-        if (part.itemID == null) throw PartNotFound(PartNotFound.createMessage(part.itemID, part.colorID))
+        if (part.itemID == null) throw partNotFound(partNotFound.createMessage(part.itemID, part.colorID))
         return part
     }
 }

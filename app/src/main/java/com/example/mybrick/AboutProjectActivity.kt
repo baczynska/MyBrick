@@ -40,7 +40,7 @@ class AboutProjectActivity : AppCompatActivity() {
                 val partsListWithActualQuantityInStore = getIdToQuantityMap()
                 val context = this
                 Thread {
-                    val inventoryId = DatabaseSingleton.getInstance(context).InventoriesDAO().findIdByName(inventoryName)
+                    val inventoryId = DatabaseSingleton.getInstance(context).InventoriesDAO().idByName(inventoryName)
                     if (inventoryId != null) {
                         getPartsListWithActual(partsListWithActualQuantityInStore, false)?.let {partsList ->
                             xmlWriter.writeXML(inventoryId, partsList, context)
@@ -55,9 +55,9 @@ class AboutProjectActivity : AppCompatActivity() {
         Thread {
             val databaseSingleton: DatabaseSingleton = DatabaseSingleton.getInstance(this)
             databaseSingleton.InventoriesDAO().updateLastAccessTime(inventoryName)
-            val codeInventory: Int? = databaseSingleton.InventoriesDAO().findIdByName(inventoryName)
+            val codeInventory: Int? = databaseSingleton.InventoriesDAO().idByName(inventoryName)
             if (codeInventory != null) {
-                val inventoryPartsList: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllByInventoryId(
+                val inventoryPartsList: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllWithInventoryId(
                     codeInventory)
                 inventoriesPartsLiveData.postValue(inventoryPartsList.map {
                     LayoutRowData(this,
@@ -92,8 +92,8 @@ class AboutProjectActivity : AppCompatActivity() {
 
     private fun getPartsListWithActual(partsListWithActualQuantityInStore: MutableMap<Int, Int>, withUpdate: Boolean): List<InventoryPart>? {
         val databaseSingleton: DatabaseSingleton = DatabaseSingleton.getInstance(this)
-        return databaseSingleton.InventoriesDAO().findIdByName(inventoryName)?.let { inventoryId ->
-            val codeInventory: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllByInventoryId(inventoryId)
+        return databaseSingleton.InventoriesDAO().idByName(inventoryName)?.let { inventoryId ->
+            val codeInventory: List<InventoryPart> = databaseSingleton.InventoriesPartsDAO().findAllWithInventoryId(inventoryId)
             val resultList = mutableListOf<InventoryPart>()
             codeInventory.forEach {
                 resultList.add(InventoryPart(it.id, it.inventoryID, it.typeID, it.itemID,

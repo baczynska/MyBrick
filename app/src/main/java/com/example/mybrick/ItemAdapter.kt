@@ -49,7 +49,7 @@ class ItemAdapter(
     }
 
 
-    private fun plusOrMinusOne(diff: Int, clickedButton: View, position: Int) {
+    private fun incrementByOne(clickedButton: View, position: Int) {
 
         val itemList = clickedButton.parent as LinearLayout
 
@@ -61,15 +61,38 @@ class ItemAdapter(
 
                 val numberOfItems = items[position].quantityInStore
                 val maxItems = items[position].quantityInSet
-                if( (numberOfItems > 0) and (numberOfItems < maxItems)) {
+                if( numberOfItems < maxItems) {
 
-                    val numberOfItemsNow = numberOfItems + diff
+                    val numberOfItemsNow = numberOfItems + 1
                     items[position].quantityInStore = numberOfItemsNow
                     (child as TextView).text = numberOfItemsNow.toString()
 
                     if ( numberOfItemsNow == maxItems)
                         (itemList.parent as ConstraintLayout).setBackgroundColor(doneColor)
-                    else
+                }
+            }
+        }
+    }
+
+    private fun decrementByOne(clickedButton: View, position: Int) {
+
+        val itemList = clickedButton.parent as LinearLayout
+
+        for (i: Int in 0 until itemList.childCount) {
+
+            val child: View = itemList[i]
+
+            if (child.id == R.id.integer_number) {
+
+                val numberOfItems = items[position].quantityInStore
+                val maxItems = items[position].quantityInSet
+                if( numberOfItems > 0) {
+
+                    val numberOfItemsNow = numberOfItems - 1
+                    items[position].quantityInStore = numberOfItemsNow
+                    (child as TextView).text = numberOfItemsNow.toString()
+
+                    if ( numberOfItems == maxItems)
                         (itemList.parent as ConstraintLayout).setBackgroundColor(mainColor)
                 }
             }
@@ -89,10 +112,10 @@ class ItemAdapter(
         val decrease = thisRow.findViewById<Button>(R.id.decrease)
 
         increase.setOnClickListener {
-            plusOrMinusOne(1, it, position)
+            incrementByOne(it, position)
         }
         decrease.setOnClickListener {
-            plusOrMinusOne(-1, it, position)
+            decrementByOne(it, position)
         }
 
         return thisRow

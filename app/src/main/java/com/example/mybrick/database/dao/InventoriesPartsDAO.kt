@@ -19,7 +19,7 @@ interface InventoriesPartsDAO {
     fun findAll(): List<InventoryPart>
 
     @Query("SELECT * FROM InventoriesParts WHERE InventoryID = :inventoryId")
-    fun findAllByInventoryId(inventoryId: Int): List<InventoryPart>
+    fun findAllWithInventoryId(inventoryId: Int): List<InventoryPart>
 
     fun deleteAll() {
         deleteList(findAll())
@@ -29,6 +29,6 @@ interface InventoriesPartsDAO {
     fun update(parts: List<InventoryPart>)
 
     fun deteteForThis(id: Int){
-        deleteList(findAllByInventoryId(id))
+        deleteList(findAllWithInventoryId(id))
     }
 }

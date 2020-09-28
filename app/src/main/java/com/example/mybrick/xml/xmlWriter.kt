@@ -51,7 +51,7 @@ class xmlWriter {
             val message = context.getExternalFilesDir(null)?.let { dir ->
                 val file = File(dir.path, "$inventoryNo.xml")
                 transformer.transform(DOMSource(doc), StreamResult(file))
-                context.getString(R.string.export_success) + file.path
+                context.getString(R.string.export_success)
             } ?: context.getString(R.string.export_error)
             context.runOnUiThread {
                 val builder = AlertDialog.Builder(context)

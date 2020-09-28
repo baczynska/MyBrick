@@ -4,7 +4,6 @@
     <string name="xmlError">XML Error</string>
     <string name="xmlSuccess">Success</string>
     <string name="simpleError">Error</string>
-    <string name="purgeDatabaseButton">Purge database (dangerous)</string>
     <string name="source_url">sourceUrl</string>
     <string name="show_archived">showArchived</string>
     <string name="id_exists_error">This id already exists</string>
@@ -13,7 +12,7 @@
     <string name="archive_question">Are you sure you want to archive this project</string>
     <string name="unarchive_question">Are you sure you want to unarchive this project?</string>
     <string name="url">http://fcds.cs.put.poznan.pl/MyWeb/BL/</string>
-    <string name="export_success">Success! Saved in: </string>
+    <string name="export_success">Export succeed!</string>
     <string name="export_error">Error. File couldn\'t be created</string>
     <string name="imageForPartNotFound">Image for this part not found</string>
 </resources>

@@ -40,13 +40,13 @@ class xmlDownload(private val activity: AddProject) : AsyncTask<String, Void, St
         if (inputIdAsInt != null) {
 
             // to id już istnieje
-            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkIfExistsById(inputIdAsInt)) {
+            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkById(inputIdAsInt)) {
                 err = true
                 return activity.application.resources.getString(R.string.id_exists_error)
             }
 
             // ta nazwa już istnieje
-            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkIfExistsByName(inputName)) {
+            if (DatabaseSingleton.getInstance(activity.application).InventoriesDAO().checkByName(inputName)) {
                 err = true
                 return activity.application.resources.getString(R.string.name_repeated_error)
             }

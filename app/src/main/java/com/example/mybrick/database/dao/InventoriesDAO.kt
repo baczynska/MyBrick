@@ -13,10 +13,10 @@ interface InventoriesDAO {
     fun findAll(alsoArchived: Boolean = true): List<Inventory>
 
     @Query("SELECT EXISTS(SELECT * FROM Inventories WHERE Id = :id)")
-    fun checkIfExistsById(id: Int): Boolean
+    fun checkById(id: Int): Boolean
 
     @Query("SELECT EXISTS(SELECT * FROM Inventories WHERE Name = :name)")
-    fun checkIfExistsByName(name: String): Boolean
+    fun checkByName(name: String): Boolean
 
     @Insert
     fun insert(newInventory: Inventory)
@@ -28,7 +28,7 @@ interface InventoriesDAO {
     fun deleteList(inventories: List<Inventory>)
 
     @Query("SELECT Id FROM Inventories WHERE Name = :name LIMIT 1")
-    fun findIdByName(name: String): Int?
+    fun idByName(name: String): Int?
 
 
     @Update
